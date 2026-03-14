@@ -1,0 +1,2 @@
+# bot-gamepix
+python bot
