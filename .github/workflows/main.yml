@@ -1,0 +1,30 @@
+name: Check Web Traffic
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Tools
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Eksekusi Predator
+        run: python predator.py
+
+      - name: Eksekusi Bot Advertica
+        run: python ads.py
+        
