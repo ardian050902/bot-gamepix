@@ -1,0 +1,30 @@
+name: Eternal Revenue Monster 24/7
+
+on:
+  schedule:
+    - cron: '0 */4 * * *' # Otomatis restart setiap 4 jam biar gak kena limit GitHub
+  workflow_dispatch: # Bisa lu pencet tombol 'Run Workflow' manual kapan aja
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies & Playwright
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright
+          # Instal browser Firefox khusus buat bot revenue
+          playwright install firefox
+          playwright install-deps firefox
+
+      - name: Running Bot Nonstop
+        run: python ads.py
+        
